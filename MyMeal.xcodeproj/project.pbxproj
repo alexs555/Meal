@@ -16,9 +16,12 @@
 		992BDA961BCDA6380012B3B0 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 992BDA941BCDA6380012B3B0 /* LaunchScreen.xib */; };
 		992BDAA21BCDA6380012B3B0 /* MyMealTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 992BDAA11BCDA6380012B3B0 /* MyMealTests.swift */; };
 		9952136A1BD97ADE000474DC /* Recepie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 995213691BD97ADE000474DC /* Recepie.swift */; settings = {ASSET_TAGS = (); }; };
+		9952136C1BD9822F000474DC /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9952136B1BD9822F000474DC /* SearchViewModel.swift */; settings = {ASSET_TAGS = (); }; };
+		9952136E1BD98629000474DC /* SearchResultViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9952136D1BD98629000474DC /* SearchResultViewModel.swift */; settings = {ASSET_TAGS = (); }; };
+		995213741BDB63CA000474DC /* RecepiesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 995213731BDB63CA000474DC /* RecepiesCell.swift */; settings = {ASSET_TAGS = (); }; };
+		995213761BDB6BA3000474DC /* SearchResultsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 995213751BDB6BA3000474DC /* SearchResultsController.swift */; settings = {ASSET_TAGS = (); }; };
 		99593E051BD586E600584807 /* FoodAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99593E041BD586E600584807 /* FoodAPI.swift */; settings = {ASSET_TAGS = (); }; };
 		99593E081BD6E54B00584807 /* Dependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99593E071BD6E54B00584807 /* Dependencies.swift */; settings = {ASSET_TAGS = (); }; };
-		999073051BD1A2C000936721 /* SearchRecepieController.m in Sources */ = {isa = PBXBuildFile; fileRef = 999073041BD1A2C000936721 /* SearchRecepieController.m */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,11 +49,13 @@
 		992BDAA01BCDA6380012B3B0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		992BDAA11BCDA6380012B3B0 /* MyMealTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyMealTests.swift; sourceTree = "<group>"; };
 		995213691BD97ADE000474DC /* Recepie.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Recepie.swift; path = Models/Recepie.swift; sourceTree = "<group>"; };
+		9952136B1BD9822F000474DC /* SearchViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchViewModel.swift; path = Models/SearchViewModel.swift; sourceTree = "<group>"; };
+		9952136D1BD98629000474DC /* SearchResultViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchResultViewModel.swift; path = Models/SearchResultViewModel.swift; sourceTree = "<group>"; };
+		995213731BDB63CA000474DC /* RecepiesCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RecepiesCell.swift; path = Views/RecepiesCell.swift; sourceTree = "<group>"; };
+		995213751BDB6BA3000474DC /* SearchResultsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchResultsController.swift; path = Controllers/SearchResultsController.swift; sourceTree = "<group>"; };
 		99593E041BD586E600584807 /* FoodAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FoodAPI.swift; path = Network/FoodAPI.swift; sourceTree = "<group>"; };
 		99593E071BD6E54B00584807 /* Dependencies.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Dependencies.swift; path = Helpers/Dependencies.swift; sourceTree = SOURCE_ROOT; };
 		999073021BD1A2BF00936721 /* MyMeal-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MyMeal-Bridging-Header.h"; sourceTree = "<group>"; };
-		999073031BD1A2C000936721 /* SearchRecepieController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SearchRecepieController.h; path = Controllers/SearchRecepieController.h; sourceTree = "<group>"; };
-		999073041BD1A2C000936721 /* SearchRecepieController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SearchRecepieController.m; path = Controllers/SearchRecepieController.m; sourceTree = "<group>"; };
 		C38732B46386E552A8C59CE9 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -113,18 +118,17 @@
 		992BDA851BCDA6380012B3B0 /* MyMeal */ = {
 			isa = PBXGroup;
 			children = (
+				995213721BDB61BC000474DC /* Views */,
+				9952136F1BDAD7B9000474DC /* Controller */,
 				99593E091BD6EC3900584807 /* ViewModels */,
 				99593E061BD6E4F500584807 /* RxHelpers */,
 				99593E031BD585C700584807 /* Network */,
 				992BDA881BCDA6380012B3B0 /* AppDelegate.swift */,
-				992BDA8D1BCDA6380012B3B0 /* FavoritesController.swift */,
 				992BDA8F1BCDA6380012B3B0 /* Main.storyboard */,
 				992BDA921BCDA6380012B3B0 /* Images.xcassets */,
 				992BDA941BCDA6380012B3B0 /* LaunchScreen.xib */,
 				992BDA8A1BCDA6380012B3B0 /* MyMeal.xcdatamodeld */,
 				992BDA861BCDA6380012B3B0 /* Supporting Files */,
-				999073031BD1A2C000936721 /* SearchRecepieController.h */,
-				999073041BD1A2C000936721 /* SearchRecepieController.m */,
 				999073021BD1A2BF00936721 /* MyMeal-Bridging-Header.h */,
 			);
 			path = MyMeal;
@@ -155,6 +159,23 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		9952136F1BDAD7B9000474DC /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				995213751BDB6BA3000474DC /* SearchResultsController.swift */,
+				992BDA8D1BCDA6380012B3B0 /* FavoritesController.swift */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		995213721BDB61BC000474DC /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				995213731BDB63CA000474DC /* RecepiesCell.swift */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
 		99593E031BD585C700584807 /* Network */ = {
 			isa = PBXGroup;
 			children = (
@@ -174,6 +195,8 @@
 		99593E091BD6EC3900584807 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				9952136D1BD98629000474DC /* SearchResultViewModel.swift */,
+				9952136B1BD9822F000474DC /* SearchViewModel.swift */,
 				995213691BD97ADE000474DC /* Recepie.swift */,
 			);
 			name = ViewModels;
@@ -334,11 +357,14 @@
 			files = (
 				99593E081BD6E54B00584807 /* Dependencies.swift in Sources */,
 				9952136A1BD97ADE000474DC /* Recepie.swift in Sources */,
+				9952136C1BD9822F000474DC /* SearchViewModel.swift in Sources */,
 				992BDA8E1BCDA6380012B3B0 /* FavoritesController.swift in Sources */,
 				992BDA8C1BCDA6380012B3B0 /* MyMeal.xcdatamodeld in Sources */,
 				99593E051BD586E600584807 /* FoodAPI.swift in Sources */,
+				995213741BDB63CA000474DC /* RecepiesCell.swift in Sources */,
 				992BDA891BCDA6380012B3B0 /* AppDelegate.swift in Sources */,
-				999073051BD1A2C000936721 /* SearchRecepieController.m in Sources */,
+				995213761BDB6BA3000474DC /* SearchResultsController.swift in Sources */,
+				9952136E1BD98629000474DC /* SearchResultViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

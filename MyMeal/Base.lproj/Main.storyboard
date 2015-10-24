@@ -26,10 +26,10 @@
             </objects>
             <point key="canvasLocation" x="946" y="-542"/>
         </scene>
-        <!--Search Recepie Controller-->
+        <!--Search Results Controller-->
         <scene sceneID="DlV-cG-Ake">
             <objects>
-                <viewController id="pmZ-KM-DNI" customClass="SearchRecepieController" sceneMemberID="viewController">
+                <viewController id="pmZ-KM-DNI" customClass="SearchResultsController" customModule="MyMeal" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="lUn-qC-pQc"/>
                         <viewControllerLayoutGuide type="bottom" id="DoE-v8-jmb"/>
@@ -42,8 +42,42 @@
                                 <rect key="frame" x="0.0" y="94" width="600" height="457"/>
                                 <animations/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" id="7Z1-Fj-VdZ" customClass="RecepiesCell" customModule="MyMeal" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="92" width="600" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="7Z1-Fj-VdZ" id="zq1-M1-tGb">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="raI-X0-qFL">
+                                                    <rect key="frame" x="27" y="11" width="553" height="21"/>
+                                                    <animations/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <animations/>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="raI-X0-qFL" secondAttribute="trailing" constant="20" id="CGA-uF-2e8"/>
+                                                <constraint firstItem="raI-X0-qFL" firstAttribute="top" secondItem="zq1-M1-tGb" secondAttribute="top" constant="11" id="HD8-1W-Cs5"/>
+                                                <constraint firstItem="raI-X0-qFL" firstAttribute="leading" secondItem="zq1-M1-tGb" secondAttribute="leading" constant="27" id="oJW-wk-KeO"/>
+                                                <constraint firstAttribute="bottom" secondItem="raI-X0-qFL" secondAttribute="bottom" constant="11" id="ozY-wq-2R6"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <animations/>
+                                        <connections>
+                                            <outlet property="titleLabel" destination="raI-X0-qFL" id="1Yh-6A-3b8"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="pmZ-KM-DNI" id="0sM-n7-8B9"/>
+                                    <outlet property="delegate" destination="pmZ-KM-DNI" id="gzb-JL-PiV"/>
+                                </connections>
                             </tableView>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zUJ-Ab-HbR">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Type comma separated ingredients" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zUJ-Ab-HbR">
                                 <rect key="frame" x="20" y="64" width="560" height="30"/>
                                 <animations/>
                                 <constraints>
@@ -73,7 +107,8 @@
                     </view>
                     <navigationItem key="navigationItem" id="1W1-Pd-v7r"/>
                     <connections>
-                        <outlet property="tableView" destination="LQE-HS-eFH" id="OIw-oq-JWb"/>
+                        <outlet property="tableView" destination="LQE-HS-eFH" id="MSu-zi-ERI"/>
+                        <outlet property="textField" destination="zUJ-Ab-HbR" id="2Le-Z8-jJQ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9Hy-Ol-owQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
