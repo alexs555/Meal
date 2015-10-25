@@ -73,8 +73,8 @@
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
-                                    <outlet property="dataSource" destination="pmZ-KM-DNI" id="0sM-n7-8B9"/>
-                                    <outlet property="delegate" destination="pmZ-KM-DNI" id="gzb-JL-PiV"/>
+                                    <outlet property="dataSource" destination="pmZ-KM-DNI" id="Trt-AH-EqD"/>
+                                    <outlet property="delegate" destination="pmZ-KM-DNI" id="9kT-0n-th4"/>
                                 </connections>
                             </tableView>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Type comma separated ingredients" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zUJ-Ab-HbR">
@@ -85,6 +85,9 @@
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="pmZ-KM-DNI" id="bbO-ei-XNO"/>
+                                </connections>
                             </textField>
                         </subviews>
                         <animations/>

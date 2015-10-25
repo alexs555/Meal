@@ -5,74 +5,52 @@
 //  Created by Алексей Шпирко on 19/10/15.
 //  Copyright © 2015 AlexShpirko LLC. All rights reserved.
 //
+
 import Foundation
-#if !RX_NO_MODULE
-    import RxSwift
-    import RxCocoa
-#endif
+import Alamofire
+import MapKit
 
-func apiError(error: String) -> NSError {
-    return NSError(domain: "FoodAPI", code: -1, userInfo: [NSLocalizedDescriptionKey: error])
+
+enum SortType: String {
+    case Tranding = "t", Rating = "r"
 }
 
-public let FoodParseError = apiError("Error during parsing")
-
-func URLEscape(pathSegment: String) -> String {
-    return pathSegment.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())!
-}
-
-public let ApiParseError = apiError("Error during parsing")
-
-protocol FoodAPI {
-    func getSearchResults(query: String) -> Observable<[Recepie]>
-   // func recepeContent(searchResult: Int) -> Observable<String>
-}
-
-class DefaultAPI: FoodAPI {
+enum FoodRouter: URLRequestConvertible {
     
-    static let sharedAPI = DefaultAPI() // Singleton
+    static let baseURLString = "http://food2fork.com/api/search"
     
-    let baseUrl = "http://food2fork.com/api/search?key=73e3ebee222652cf459384f7dbcb6c4c"
+    case SearchRecipes(String, Int, String)
     
-    let $: Dependencies = Dependencies.sharedDependencies
     
-    private init() {}
-    //73e3ebee222652cf459384f7dbcb6c4c
-    // Example wikipedia response http://en.wikipedia.org/w/api.php?action=opensearch&search=Rx
-   // http://food2fork.com/api/search?key={API_KEY}&q=shredded%20chicken
-    
-    func getSearchResults(query: String) -> Observable<[Recepie]> {
-        let escapedQuery = URLEscape(query)
-        let urlContent = "\(baseUrl)&q=\(escapedQuery)"
-        let url = NSURL(string: urlContent)!
+    var method: Alamofire.Method {
         
-        return $.URLSession
-            .rx_JSON(url)
-            .observeOn($.backgroundWorkScheduler)
-            .map { json in
-                guard let json = json as? [AnyObject] else {
-                    throw  NSError(domain: "ParsingError", code: -1, userInfo: nil)
-                }
-                return try Recepie.parseJSON(json)
-            }
-            .observeOn($.mainScheduler)
+        return .GET
+    }
+    var path: String {
+        
+        return ""
     }
     
-    // http://en.wikipedia.org/w/api.php?action=parse&page=rx&format=json
-    /*func recepeContent(searchResult: WikipediaSearchResult) -> Observable<WikipediaPage> {
-        let escapedPage = URLEscape(searchResult.title)
-        guard let url = NSURL(string: "http://en.wikipedia.org/w/api.php?action=parse&page=\(escapedPage)&format=json") else {
-            return failWith(apiError("Can't create url"))
-        }
+    var URLRequest: NSMutableURLRequest {
         
-        return $.URLSession.rx_JSON(url)
-            .map { jsonResult in
-                guard let json = jsonResult as? NSDictionary else {
-                    throw exampleError("Parsing error")
-                }
+        let URL = NSURL(string: FoodRouter.baseURLString)!
+        let mutableURLRequest = NSMutableURLRequest(URL: URL.URLByAppendingPathComponent(path))
+        mutableURLRequest.HTTPMethod = method.rawValue
+        mutableURLRequest.addValue("application/json", forHTTPHeaderField: "Accept")
+        mutableURLRequest.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        switch self {
+            
+            case .SearchRecipes(let query, let page, let sort):
                 
-                return try WikipediaPage.parseJSON(json)
-            }
-            .observeOn($.mainScheduler)
-    }*/
+                return Alamofire.ParameterEncoding.URL.encode(mutableURLRequest, parameters:
+                    ["key": "73e3ebee222652cf459384f7dbcb6c4c",
+                    "q":query,
+                    "page" : page,
+                    "sort" : sort,
+                    ]).0
+            default:
+                return mutableURLRequest
+        }
+    }
+    
 }

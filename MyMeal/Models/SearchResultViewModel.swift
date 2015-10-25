@@ -24,14 +24,31 @@ class SearchResultViewModel {
     init(searchResult: Recepie) {
         self.searchResult = searchResult
 
-        self.title = never()
+        //self.title = never()
         self.imageURLs = never()
 
         //let URLs = configureImageURLs()
 
         //self.imageURLs = URLs.catchErrorJustReturn([])
-       // self.title = configureTitle(URLs).catchErrorJustReturn("Error during fetching")
+        
+       
+        
+        let myJust = { (singleElement: String) -> Observable<String> in
+            return create { observer in
+                observer.on(.Next(singleElement))
+                observer.on(.Completed)
+                return NopDisposable.instance
+            }
+        }
+        self.title = myJust(searchResult.title)
+        
+    
+        
+    
+        
     }
+    
+    
 
     // private methods
 

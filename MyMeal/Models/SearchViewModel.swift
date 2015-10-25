@@ -27,6 +27,7 @@ class SearchViewModel {
         let $: Dependencies = Dependencies.sharedDependencies
         //let wireframe = Dependencies.sharedDependencies.wireframe
         let API = DefaultAPI.sharedAPI
+            
         
         self.rows = searchText
             .throttle(0.3, $.mainScheduler)
