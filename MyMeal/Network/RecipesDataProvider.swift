@@ -27,10 +27,8 @@ class RecipesDataProvider {
     
             let recipes = json["recipes"].array?.map({ element -> Recipe in
            
-                var jsonRecipe = element as JSON
-                let URL = NSURL(string: jsonRecipe["f2f_url"].string!)
-                let titleString = jsonRecipe["title"].string
-                let recipe = Recipe(title:titleString!, URL:URL!)
+                let jsonRecipe = element as JSON
+                let recipe = Recipe(dictionary: jsonRecipe)
                 return recipe
             })
         

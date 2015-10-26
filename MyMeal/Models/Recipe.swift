@@ -11,7 +11,22 @@ import SwiftyJSON
 
 struct Recipe  {
     
-    let title: String
-    let URL: NSURL
+    let title: String?
+    let imageURL: NSURL?
+    let publisher: String?
+    let rank: Int?
+    let recipeId : String?
+    let recipeURL: NSURL?
+    
+    
+    init(dictionary:JSON) {
+        
+        imageURL = NSURL(string: dictionary["image_url"].string!)
+        title = dictionary["title"].string
+        publisher = dictionary["publisher"].string
+        recipeURL = NSURL(string: dictionary["f2f_url"].string!)
+        rank = dictionary["social_rank"].int
+        recipeId = dictionary["recipe_id"].string
+    }
     
 }

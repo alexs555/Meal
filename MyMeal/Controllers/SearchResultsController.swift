@@ -21,12 +21,22 @@ class SearchResultsController: BaseViewController {
         super.viewDidLoad()
         
         items = []
+        
+        tableView.estimatedRowHeight = 200.0
+        tableView.rowHeight = UITableViewAutomaticDimension
         // Do any additional setup after loading the view, typically from a nib.
+    }
+    
+    override func viewDidAppear(animated:Bool) {
+        super.viewDidAppear(animated)
+        
+        //tableView.reloadData()
+        
     }
     
     func loadData(query:String,page:Int,sort:String) {
         
-        ApiClient.defaultClient.fetchRecipesForQuery("", page: 100  , sort: "t", completionHandler:{ (recipes, success)-> Void in
+        ApiClient.defaultClient.fetchRecipesForQuery(query, page: page , sort: sort, completionHandler:{ (recipes, success)-> Void in
             
             print(recipes)
             if let recipes = recipes {
@@ -51,7 +61,7 @@ class SearchResultsController: BaseViewController {
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
        
         let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as! RecepiesCell
-        var recipe = items![indexPath.row]
+        let recipe = items![indexPath.row]
         cell.updateWithRecipe(recipe)
         return cell;
         
