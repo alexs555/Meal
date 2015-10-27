@@ -9,7 +9,7 @@
 import UIKit
 
 // UITextFieldDelegate, UITableViewDelegate,UITableViewDatasource
-class SearchResultsController: BaseViewController {
+class SearchResultsController: BaseViewController, UISearchBarDelegate {
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var textField: UITextField!
@@ -63,17 +63,22 @@ class SearchResultsController: BaseViewController {
         let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as! RecepiesCell
         let recipe = items![indexPath.row]
         cell.updateWithRecipe(recipe)
+        cell.addTarget(self, action: "addToFavorites:")
         return cell;
         
     }
     
-    //MARK: Textfield delegate
-
-    func textFieldShouldReturn(textField: UITextField!) -> Bool {   //delegate method
-        textField.resignFirstResponder()
+    
+    //MARK: Search bar delegate
+     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
         
-        loadData(textField.text!, page: currentPage, sort: SortType.Rating.rawValue)
-        return true
+         loadData(searchBar.text!, page: currentPage, sort: SortType.Rating.rawValue)
+     }
+    
+    func addToFavorites(button:UIButton) {
+        
+        button.selected = !button.selected
+        
     }
     
 }
