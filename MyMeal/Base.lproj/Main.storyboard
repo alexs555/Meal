@@ -153,7 +153,7 @@
                                     <outlet property="delegate" destination="pmZ-KM-DNI" id="9kT-0n-th4"/>
                                 </connections>
                             </tableView>
-                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="42O-Va-Dtv">
+                            <searchBar contentMode="redraw" placeholder="Type comma separated ingredients" translatesAutoresizingMaskIntoConstraints="NO" id="42O-Va-Dtv">
                                 <rect key="frame" x="0.0" y="64" width="600" height="44"/>
                                 <animations/>
                                 <textInputTraits key="textInputTraits"/>
@@ -184,6 +184,7 @@
                     </view>
                     <navigationItem key="navigationItem" title=" Recipes" id="1W1-Pd-v7r"/>
                     <connections>
+                        <outlet property="searchBar" destination="42O-Va-Dtv" id="FI2-Ov-k0u"/>
                         <outlet property="tableView" destination="LQE-HS-eFH" id="MSu-zi-ERI"/>
                     </connections>
                 </viewController>

@@ -17,6 +17,8 @@ public let ParseError = apiError("Error during parsing")
 
 class RecipesDataProvider {
     
+    private var currentPage = -1
+    
     static func parseJSON(json:AnyObject?) throws -> [Recipe] {
         
             guard let resultJSON = json else {
@@ -33,6 +35,17 @@ class RecipesDataProvider {
             })
         
         return recipes!
+        
+    }
+    
+    func fetchRecipes(forse:Bool,query:String, completionHandler:(recipes:[Recipe]?,success:Bool)->Void) {
+        
+        currentPage = forse ? 0 : ++currentPage
+        ApiClient.defaultClient.fetchRecipesForQuery(query, page: currentPage , sort: SortType.Rating.rawValue, completionHandler:{ (recipes, success)-> Void in
+            
+            completionHandler(recipes:recipes, success:success)
+        
+        })
         
     }
 }

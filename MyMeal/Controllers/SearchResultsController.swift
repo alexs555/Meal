@@ -7,40 +7,49 @@
 //
 
 import UIKit
+import MBProgressHUD
+import DZNEmptyDataSet
 
 // UITextFieldDelegate, UITableViewDelegate,UITableViewDatasource
 class SearchResultsController: BaseViewController, UISearchBarDelegate {
     
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var textField: UITextField!
+    @IBOutlet weak var searchBar: UISearchBar!
     
     var items:[Recipe]?
-    var currentPage = 1
+    var currentQuery: String?
+    var dataProvider:RecipesDataProvider!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         items = []
         
+        dataProvider = RecipesDataProvider()
         tableView.estimatedRowHeight = 200.0
         tableView.rowHeight = UITableViewAutomaticDimension
-        // Do any additional setup after loading the view, typically from a nib.
+        tableView.registerNib(UINib(nibName: "LoadingCell", bundle: nil), forCellReuseIdentifier: "LoadingCell")
+        
+        configureEmptyState()
     }
     
-    override func viewDidAppear(animated:Bool) {
-        super.viewDidAppear(animated)
-        
-        //tableView.reloadData()
-        
+    func configureEmptyState() {
+        tableView.emptyDataSetSource = self
+        tableView.emptyDataSetDelegate = self
     }
     
-    func loadData(query:String,page:Int,sort:String) {
+    func loadData(query:String, force:Bool) {
         
-        ApiClient.defaultClient.fetchRecipesForQuery(query, page: page , sort: sort, completionHandler:{ (recipes, success)-> Void in
+        if (force) {
+            let hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+            hud.labelText = "Fetching recipes..."
+            hud.mode = .Indeterminate
+        }
+        dataProvider.fetchRecipes(force,query:query,completionHandler:{ (recipes, success) -> Void in
             
-            print(recipes)
+           MBProgressHUD.hideAllHUDsForView(self.view, animated: true)
             if let recipes = recipes {
-                self.items = recipes
+                self.items?.appendContentsOf(recipes)
             } else {
                 //show error
             }
@@ -60,19 +69,30 @@ class SearchResultsController: BaseViewController, UISearchBarDelegate {
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
        
-        let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as! RecepiesCell
-        let recipe = items![indexPath.row]
-        cell.updateWithRecipe(recipe)
-        cell.addTarget(self, action: "addToFavorites:")
+        let cell:UITableViewCell
+        if (indexPath.row == ((items?.count)! - 1)) {
+           let lCell = tableView.dequeueReusableCellWithIdentifier("LoadingCell", forIndexPath: indexPath) as! LoadingCell
+            cell = lCell
+            loadData(currentQuery!, force:false)
+        } else {
+            let recipe = items![indexPath.row]
+            let rCell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as! RecepiesCell
+            rCell.updateWithRecipe(recipe)
+            rCell.addTarget(self, action: "addToFavorites:")
+            cell = rCell
+        }
+        
         return cell;
         
     }
     
-    
     //MARK: Search bar delegate
      func searchBarSearchButtonClicked(searchBar: UISearchBar) {
         
-         loadData(searchBar.text!, page: currentPage, sort: SortType.Rating.rawValue)
+        items?.removeAll()
+        currentQuery = searchBar.text!
+        loadData(currentQuery!,force:true)
+        searchBar.resignFirstResponder()
      }
     
     func addToFavorites(button:UIButton) {
@@ -81,4 +101,26 @@ class SearchResultsController: BaseViewController, UISearchBarDelegate {
         
     }
     
+}
+
+
+extension SearchResultsController : DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
+    
+    func titleForEmptyDataSet(scrollView: UIScrollView!) -> NSAttributedString! {
+        return NSAttributedString(string: searchWasActivated() ? "Nothing found :(" : "")
+    }
+    
+    func descriptionForEmptyDataSet(scrollView: UIScrollView!) -> NSAttributedString! {
+        return NSAttributedString(string: searchWasActivated() ? "Sorry about this, try to type less specific ingredients" : "")
+    }
+    
+    func imageForEmptyDataSet(scrollView: UIScrollView!) -> UIImage! {
+        
+        return searchWasActivated() ? nil : UIImage(named:"search_dish")
+    }
+    
+    func searchWasActivated() -> Bool {
+        
+        return searchBar.text!.characters.count > 0
+    }
 }
