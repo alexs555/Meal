@@ -26,7 +26,7 @@ class ApiClient {
                 if response.result.isSuccess {
                    
                     do {
-                        let recipes = try RecipesDataProvider.parseJSON(response.result.value)
+                        let recipes = try RecipesDataProvider.parseJSONArray(response.result.value)
                         completionHandler(recipes: recipes, success: true)
                         
                         print("recipes \(recipes)")
@@ -42,6 +42,23 @@ class ApiClient {
 
             }
         }
+    
+    func fetchRecipeById(recipeId:String,
+        completionHandler: (recipe :Recipe?, success:Bool) -> Void) {
+        
+            Alamofire.request(FoodRouter.GetRecipe(recipeId)).responseJSON { response in
+                
+                 if response.result.isSuccess {
+                
+                    let recipeJSON = JSON(response.result.value!)
+                    let recipe = RecipesDataProvider.parseJSONItem(recipeJSON["recipe"])
+                    completionHandler(recipe: recipe, success: true)
+                    
+                 }  else {
+                    completionHandler(recipe: nil, success: false)
+                }
+            }
+    }
             
 }
     

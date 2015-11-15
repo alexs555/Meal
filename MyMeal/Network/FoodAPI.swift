@@ -10,6 +10,8 @@ import Foundation
 import Alamofire
 import MapKit
 
+let key = "73e3ebee222652cf459384f7dbcb6c4c"
+
 
 enum SortType: String {
     case Tranding = "t", Rating = "r"
@@ -17,9 +19,10 @@ enum SortType: String {
 
 enum FoodRouter: URLRequestConvertible {
     
-    static let baseURLString = "http://food2fork.com/api/search"
+    static let baseURLString = "http://food2fork.com/api/"
     
     case SearchRecipes(String, Int, String)
+    case GetRecipe(String)
     
     
     var method: Alamofire.Method {
@@ -28,7 +31,14 @@ enum FoodRouter: URLRequestConvertible {
     }
     var path: String {
         
-        return ""
+        switch self {
+            
+            case .SearchRecipes(_, _, _):
+                return "search"
+            case .GetRecipe(_):
+                return "get"
+        }
+        
     }
     
     var URLRequest: NSMutableURLRequest {
@@ -43,11 +53,18 @@ enum FoodRouter: URLRequestConvertible {
             case .SearchRecipes(let query, let page, let sort):
                 
                 return Alamofire.ParameterEncoding.URL.encode(mutableURLRequest, parameters:
-                    ["key": "73e3ebee222652cf459384f7dbcb6c4c",
+                    ["key": key,
                     "q":query,
                     "page" : page,
                     "sort" : sort,
                     ]).0
+            case .GetRecipe(let recipeId):
+            
+                return Alamofire.ParameterEncoding.URL.encode(mutableURLRequest, parameters:
+                    ["key": key,
+                     "rId":recipeId
+                    ]).0
+            
             default:
                 return mutableURLRequest
         }

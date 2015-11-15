@@ -33,12 +33,17 @@ class RecepiesCell: UITableViewCell {
  
     func updateWithRecipe(recipe:Recipe) {
         
-        rankLabel.text = String(recipe.rank!)
+        rankLabel.text = String(recipe.rank)
         titleLabel.text = recipe.title
         publisherLabel.text = recipe.publisher
-        mainImageView.setImageFromUrl(recipe.imageURL!.absoluteString, animated: true)
-         contentView.bringSubviewToFront(starButton)
+        mainImageView.setImageFromUrl(recipe.imageURL.absoluteString, animated: true)
+        starButton.selected = recipe.isFavorite
+        contentView.bringSubviewToFront(starButton)
         
+    }
+    
+    func setFavorite(isFavorite:Bool) {
+        starButton.selected = isFavorite
     }
  
     internal override func prepareForReuse() {

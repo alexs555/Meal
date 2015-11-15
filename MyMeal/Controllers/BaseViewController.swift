@@ -8,13 +8,16 @@
 
 import UIKit
 import StatefulViewController
+import DZNEmptyDataSet
 
+class BaseViewController: UIViewController, DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
 
-class BaseViewController: UIViewController {
-
+    @IBOutlet weak var tableView: UITableView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        configureEmptyState()
         // Do any additional setup after loading the view.
     }
 
@@ -23,6 +26,12 @@ class BaseViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    
+    func configureEmptyState() {
+        tableView.emptyDataSetSource = self
+        tableView.emptyDataSetDelegate = self
+    }
+   
 
     func setupViews() {
         

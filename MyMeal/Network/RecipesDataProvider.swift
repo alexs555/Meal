@@ -17,9 +17,9 @@ public let ParseError = apiError("Error during parsing")
 
 class RecipesDataProvider {
     
-    private var currentPage = -1
+    private var currentPage = 0
     
-    static func parseJSON(json:AnyObject?) throws -> [Recipe] {
+    static func parseJSONArray(json:AnyObject?) throws -> [Recipe] {
         
             guard let resultJSON = json else {
                 throw ParseError
@@ -29,22 +29,36 @@ class RecipesDataProvider {
     
             let recipes = json["recipes"].array?.map({ element -> Recipe in
            
-                let jsonRecipe = element as JSON
-                let recipe = Recipe(dictionary: jsonRecipe)
-                return recipe
+                return RecipesDataProvider.parseJSONItem(element)
             })
         
         return recipes!
         
     }
     
+    static func parseJSONItem(json:JSON?) -> Recipe {
+        
+        let recipe = Recipe(dictionary: json!)
+        return recipe
+     
+    }
+    
     func fetchRecipes(forse:Bool,query:String, completionHandler:(recipes:[Recipe]?,success:Bool)->Void) {
         
-        currentPage = forse ? 0 : ++currentPage
+        currentPage = forse ? 1 : ++currentPage
         ApiClient.defaultClient.fetchRecipesForQuery(query, page: currentPage , sort: SortType.Rating.rawValue, completionHandler:{ (recipes, success)-> Void in
             
             completionHandler(recipes:recipes, success:success)
         
+        })
+    }
+    
+    func recipeById(recipeId:String, completionHandler:(recipe:Recipe?, success:Bool) -> Void) {
+        
+        ApiClient.defaultClient.fetchRecipeById(recipeId, completionHandler:{ (recipe, success)-> Void in
+            
+            completionHandler(recipe:recipe, success:success)
+            
         })
         
     }

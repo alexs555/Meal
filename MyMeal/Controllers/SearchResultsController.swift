@@ -9,14 +9,16 @@
 import UIKit
 import MBProgressHUD
 import DZNEmptyDataSet
+import CoreData
 
 // UITextFieldDelegate, UITableViewDelegate,UITableViewDatasource
 class SearchResultsController: BaseViewController, UISearchBarDelegate {
     
-    @IBOutlet weak var tableView: UITableView!
+   // @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
     
     var items:[Recipe]?
+    var favoriteItems:[RecipeModel]?
     var currentQuery: String?
     var dataProvider:RecipesDataProvider!
     
@@ -30,13 +32,10 @@ class SearchResultsController: BaseViewController, UISearchBarDelegate {
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.registerNib(UINib(nibName: "LoadingCell", bundle: nil), forCellReuseIdentifier: "LoadingCell")
         
-        configureEmptyState()
+        fetchFavorities()
     }
     
-    func configureEmptyState() {
-        tableView.emptyDataSetSource = self
-        tableView.emptyDataSetDelegate = self
-    }
+
     
     func loadData(query:String, force:Bool) {
         
@@ -79,11 +78,22 @@ class SearchResultsController: BaseViewController, UISearchBarDelegate {
             let rCell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as! RecepiesCell
             rCell.updateWithRecipe(recipe)
             rCell.addTarget(self, action: "addToFavorites:")
+            var isFav = isFavorite(recipe) // 1 step - check if item was fetched from DB
+            if (!isFav) {
+                isFav = recipe.isFavorite // 2 step - item could be set as favorite by pressing 'star'
+            }
+            rCell.setFavorite(isFav)
             cell = rCell
         }
         
         return cell;
         
+    }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath ) -> Void {
+        
+        let recipe = items![indexPath.row]
+        self.performSegueWithIdentifier("showRecipe", sender: recipe.recipeId)
     }
     
     //MARK: Search bar delegate
@@ -98,13 +108,71 @@ class SearchResultsController: BaseViewController, UISearchBarDelegate {
     func addToFavorites(button:UIButton) {
         
         button.selected = !button.selected
+        let view = button.superview!
+        let cell = view.superview as! RecepiesCell
+        let indexPath = tableView.indexPathForCell(cell)
+        let recipe = items?[(indexPath?.row)!]
+        recipe?.setFavorite(true)
+        recipe?.setTitle("test test test")
+        saveRecipe(recipe!)
+       
+    
         
     }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        
+        let destinationController = segue.destinationViewController as! RecipeController
+        destinationController.recipeId = sender as? String
+        destinationController.recipesProvider = dataProvider
+        
+    }
+    
+    func saveRecipe(recipe:Recipe) {
+        
+        let _recipe = NSEntityDescription.insertNewObjectForEntityForName("RecipeModel", inManagedObjectContext: CoreDataManager.sharedInstance.mainContex!) as! RecipeModel
+        _recipe.title = recipe.title
+        _recipe.rank = recipe.rank
+        _recipe.publisher = recipe.publisher
+        _recipe.imageURL = recipe.imageURL.absoluteString
+        _recipe.recipeId = recipe.recipeId
+        
+        CoreDataManager.sharedInstance.save()
+    }
+    
+    func fetchFavorities() {
+        
+        let recipesRequest = NSFetchRequest(entityName: "RecipeModel")
+        
+        do {
+         let _items = try CoreDataManager.sharedInstance.mainContex!.executeFetchRequest(recipesRequest) as? [RecipeModel]
+          self.favoriteItems = _items
+        } catch {
+            print("no favorites exist")
+        }
+        
+    }
+    
+    func isFavorite(recipe:RecipeData) -> Bool {
+        
+        var isFavorite = false
+        if let _favItems = self.favoriteItems {
+            for model in _favItems {
+                isFavorite = model.recipeId == recipe.recipeId
+                if (isFavorite) {
+                    break
+                }
+            }
+        }
+        return isFavorite
+    }
+
     
 }
 
 
-extension SearchResultsController : DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
+
+extension SearchResultsController {
     
     func titleForEmptyDataSet(scrollView: UIScrollView!) -> NSAttributedString! {
         return NSAttributedString(string: searchWasActivated() ? "Nothing found :(" : "")
