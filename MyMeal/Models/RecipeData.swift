@@ -8,14 +8,16 @@
 
 import Foundation
 
+@objc(RecipeData)
 protocol RecipeData {
     
-    var title: String { get }
-    var imageURL: NSURL { get }
-    var publisher: String { get }
-    var rank: NSNumber {get}
-    var isFavorite: Bool {set get}
-    var recipeId: String { get}
+    var title: String { get set}
+    var URL: NSURL { get }
+    var imageURL: String { get }
+    var publisher: String { get set}
+    var rank: NSNumber {get set}
+    var isFavorite: Bool { get}
+    var recipeId: String { get set}
     
-    mutating func setFavorite(favorite: Bool)
+    func setFavorite(favorite: Bool)
 }

@@ -11,16 +11,16 @@ import SwiftyJSON
 
 class Recipe : RecipeData {
     
-    var title: String
-    let imageURL: NSURL
-    let publisher: String
-    let rank: NSNumber
-    let recipeId : String
-    let recipeURL: NSURL?
-    let ingredients: Array<String>?
-    var isFavorite: Bool
+    @objc var title: String
+    @objc let imageURL: String
+    @objc var publisher: String
+    @objc var rank: NSNumber
+    @objc var recipeId : String
+    @objc let URL: NSURL
+    @objc let ingredients: Array<String>?
+    @objc var isFavorite: Bool
     
-     func setFavorite(favorite: Bool) {
+     @objc func setFavorite(favorite: Bool) {
         isFavorite = favorite
     }
     
@@ -30,10 +30,10 @@ class Recipe : RecipeData {
     
     init(dictionary:JSON) {
         
-        imageURL = NSURL(string: dictionary["image_url"].string!)!
+        imageURL = dictionary["image_url"].string!
         title = dictionary["title"].string!
         publisher = dictionary["publisher"].string!
-        recipeURL = NSURL(string: dictionary["f2f_url"].string!)
+        URL = NSURL(string: dictionary["f2f_url"].string!)!
         rank = dictionary["social_rank"].int!
         recipeId = dictionary["recipe_id"].string!
         ingredients = dictionary["ingredients"].array?.map({element -> String in

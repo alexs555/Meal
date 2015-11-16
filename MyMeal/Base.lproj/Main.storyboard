@@ -19,7 +19,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="eTQ-bQ-vJq">
-                                <rect key="frame" x="0.0" y="64" width="600" height="487"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="551"/>
                                 <animations/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
@@ -139,7 +139,7 @@
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="eTQ-bQ-vJq" secondAttribute="trailing" id="U5n-fH-rFN"/>
                             <constraint firstItem="tb4-QF-feO" firstAttribute="top" secondItem="eTQ-bQ-vJq" secondAttribute="bottom" id="o6q-mf-ZRx"/>
-                            <constraint firstItem="eTQ-bQ-vJq" firstAttribute="top" secondItem="GCg-Eb-toj" secondAttribute="bottom" id="wd9-fT-EFd"/>
+                            <constraint firstItem="eTQ-bQ-vJq" firstAttribute="top" secondItem="GCg-Eb-toj" secondAttribute="bottom" constant="-64" id="wd9-fT-EFd"/>
                             <constraint firstItem="eTQ-bQ-vJq" firstAttribute="leading" secondItem="Y9s-GF-HJh" secondAttribute="leading" id="whk-P5-e2a"/>
                         </constraints>
                     </view>
@@ -150,7 +150,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GgP-00-MJM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="945" y="-390"/>
+            <point key="canvasLocation" x="1037" y="-390"/>
         </scene>
         <!-- Recipes-->
         <scene sceneID="DlV-cG-Ake">

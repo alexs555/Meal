@@ -134,7 +134,7 @@ class SearchResultsController: BaseViewController, UISearchBarDelegate {
         _recipe.title = recipe.title
         _recipe.rank = recipe.rank
         _recipe.publisher = recipe.publisher
-        _recipe.imageURL = recipe.imageURL.absoluteString
+        _recipe.imageURL = recipe.imageURL
         _recipe.recipeId = recipe.recipeId
         
         CoreDataManager.sharedInstance.save()

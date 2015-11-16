@@ -17,11 +17,26 @@ class FavoritesController: BaseViewController, NSFetchedResultsControllerDelegat
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        do {
+          try fetchedResultsController.performFetch()
+        } catch {
+            print("error!")
+        }
+       
+        
+        items = fetchedResultsController.fetchedObjects as? Array<RecipeModel>
+        
         tableView.estimatedRowHeight = 200.0
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.registerNib(UINib(nibName: "LoadingCell", bundle: nil), forCellReuseIdentifier: "LoadingCell")
         
         // Do any additional setup after loading the view, typically from a nib.
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        
+        tableView.reloadData()
+        
     }
 
    
@@ -30,11 +45,8 @@ class FavoritesController: BaseViewController, NSFetchedResultsControllerDelegat
         
         var recipesRequest = NSFetchRequest(entityName: "RecipeModel")
         
-        
-       // recipesRequest.predicate = self.createPredicate()
-        
-        //let primarySortDescriptor = NSSortDescriptor(key: "id", ascending: true)
-       // photosRequest.sortDescriptors = [primarySortDescriptor]
+        let primarySortDescriptor = NSSortDescriptor(key: "recipeId", ascending: true)
+        recipesRequest.sortDescriptors = [primarySortDescriptor]
         
         let frc = NSFetchedResultsController(
             fetchRequest: recipesRequest,
@@ -71,7 +83,7 @@ extension FavoritesController: UITableViewDataSource {
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        let recipe = fetchedResultsController.objectAtIndexPath(indexPath) as! Recipe
+        let recipe = fetchedResultsController.objectAtIndexPath(indexPath) as! RecipeModel
         let rCell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as! RecepiesCell
         rCell.updateWithRecipe(recipe)
         rCell.addTarget(self, action: "addToFavorites:")

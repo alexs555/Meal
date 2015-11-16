@@ -31,12 +31,12 @@ class RecepiesCell: UITableViewCell {
         
     }
  
-    func updateWithRecipe(recipe:Recipe) {
+    func updateWithRecipe(recipe:RecipeData) {
         
         rankLabel.text = String(recipe.rank)
         titleLabel.text = recipe.title
         publisherLabel.text = recipe.publisher
-        mainImageView.setImageFromUrl(recipe.imageURL.absoluteString, animated: true)
+        mainImageView.setImageFromUrl(recipe.imageURL, animated: true)
         starButton.selected = recipe.isFavorite
         contentView.bringSubviewToFront(starButton)
         

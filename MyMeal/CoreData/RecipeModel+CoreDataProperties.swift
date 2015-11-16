@@ -14,12 +14,13 @@ import CoreData
 
 extension RecipeModel {
 
-    @NSManaged var imageURL: String?
-    @NSManaged var publisher: String?
-    @NSManaged var rank: NSNumber?
-    @NSManaged var recipeId: String?
-    @NSManaged var recipeURL: String?
-    @NSManaged var title: String?
-    @NSManaged var ingredient: Engredient?
+    @NSManaged var imageURL: String
+    @NSManaged var publisher: String
+    @NSManaged var rank: NSNumber
+    @NSManaged var recipeId: String
+    @NSManaged var recipeURL: String
+    @NSManaged var title: String
+    @NSManaged var ingredient: Engredient
+    
 
 }
