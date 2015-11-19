@@ -112,11 +112,12 @@ class SearchResultsController: BaseViewController, UISearchBarDelegate {
         let cell = view.superview as! RecepiesCell
         let indexPath = tableView.indexPathForCell(cell)
         let recipe = items?[(indexPath?.row)!]
-        recipe?.setFavorite(true)
-        recipe?.setTitle("test test test")
-        saveRecipe(recipe!)
-       
-    
+        recipe?.setFavorite(button.selected)
+        if (button.selected) {
+           saveRecipe(recipe!)
+        } else {
+            //remove recipe
+        }
         
     }
     
@@ -129,8 +130,8 @@ class SearchResultsController: BaseViewController, UISearchBarDelegate {
     }
     
     func saveRecipe(recipe:Recipe) {
-        
-        let _recipe = NSEntityDescription.insertNewObjectForEntityForName("RecipeModel", inManagedObjectContext: CoreDataManager.sharedInstance.mainContex!) as! RecipeModel
+
+        let _recipe:RecipeModel = CoreDataManager.sharedInstance.entity(recipe.recipeId)
         _recipe.title = recipe.title
         _recipe.rank = recipe.rank
         _recipe.publisher = recipe.publisher

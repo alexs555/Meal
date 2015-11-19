@@ -33,6 +33,29 @@ class CoreDataManager {
         })
     }
     
+    func entity<T:NSManagedObject>(entityId:String) -> T {
+        
+        let entityName = NSStringFromClass(T)
+        let entity = NSEntityDescription.entityForName(entityName, inManagedObjectContext: self.mainContex!)
+        let request = NSFetchRequest()
+        request.entity = entity
+        request.predicate = NSPredicate(format: "recipeId = %@", entityId)
+        var result:[AnyObject]?
+       
+        do {
+            try result = self.mainContex!.executeFetchRequest(request)
+        } catch let error as NSError {
+            print(error.localizedDescription)
+        }
+        if (result?.count == 0) {
+            
+           let _entity = NSEntityDescription.insertNewObjectForEntityForName(entityName, inManagedObjectContext: self.mainContex!) as! T
+            return _entity
+        }
+        
+        return result?.last as! T
+    }
+    
     
     //main context - all operations ui main thread
     lazy var mainContex: NSManagedObjectContext? = {
