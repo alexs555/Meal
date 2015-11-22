@@ -2,7 +2,7 @@
 //  RecipeModel.swift
 //  
 //
-//  Created by Алексей Шпирко on 13/11/15.
+//  Created by Алексей Шпирко on 22/11/15.
 //
 //
 
@@ -13,7 +13,7 @@ import CoreData
 class RecipeModel: NSManagedObject, RecipeData {
 
 // Insert code here to add functionality to your managed object subclass
-  
+    
     func setFavorite(favorite: Bool) {
         
     }
@@ -23,7 +23,7 @@ class RecipeModel: NSManagedObject, RecipeData {
             return NSURL(string: self.recipeURL)!
         }
     }
-   
+    
     var isFavorite:Bool {
         
         get {
@@ -32,3 +32,4 @@ class RecipeModel: NSManagedObject, RecipeData {
         
     }
 }
+

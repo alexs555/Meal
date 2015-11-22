@@ -2,7 +2,7 @@
 //  RecipeModel+CoreDataProperties.swift
 //  
 //
-//  Created by Алексей Шпирко on 15/11/15.
+//  Created by Алексей Шпирко on 22/11/15.
 //
 //
 //  Choose "Create NSManagedObject Subclass…" from the Core Data editor menu
@@ -20,7 +20,6 @@ extension RecipeModel {
     @NSManaged var recipeId: String
     @NSManaged var recipeURL: String
     @NSManaged var title: String
-    @NSManaged var ingredient: Engredient
-    
+    @NSManaged var ingredient: NSSet?
 
 }

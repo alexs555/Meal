@@ -33,7 +33,8 @@ class CoreDataManager {
         })
     }
     
-    func entity<T:NSManagedObject>(entityId:String) -> T {
+    
+    func entity<T:NSManagedObject>(entityId:String, force:Bool) -> T? {
         
         let entityName = NSStringFromClass(T)
         let entity = NSEntityDescription.entityForName(entityName, inManagedObjectContext: self.mainContex!)
@@ -47,13 +48,18 @@ class CoreDataManager {
         } catch let error as NSError {
             print(error.localizedDescription)
         }
-        if (result?.count == 0) {
+        if (result?.count == 0 && force) {
             
            let _entity = NSEntityDescription.insertNewObjectForEntityForName(entityName, inManagedObjectContext: self.mainContex!) as! T
             return _entity
         }
         
-        return result?.last as! T
+        return result?.last as? T
+    }
+    
+    func removeEntity(entity:NSManagedObject) {
+        
+        self.mainContex!.deleteObject(entity)
     }
     
     

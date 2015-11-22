@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -35,6 +36,7 @@
                     <constraint firstItem="Jsb-94-1tu" firstAttribute="leading" secondItem="WBw-UZ-Clg" secondAttribute="trailing" constant="8" id="CYl-zP-ps4"/>
                     <constraint firstAttribute="trailing" secondItem="Jsb-94-1tu" secondAttribute="trailing" constant="8" id="Uw4-6W-0mU"/>
                     <constraint firstItem="Jsb-94-1tu" firstAttribute="centerY" secondItem="WBw-UZ-Clg" secondAttribute="centerY" id="id0-n1-gaF"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="Jsb-94-1tu" secondAttribute="bottom" constant="3" id="r2c-Y5-gVR"/>
                     <constraint firstItem="WBw-UZ-Clg" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="u6I-x5-60v"/>
                     <constraint firstItem="WBw-UZ-Clg" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="vLR-cK-ypK"/>
                 </constraints>
@@ -43,6 +45,7 @@
             <connections>
                 <outlet property="titleLabel" destination="Jsb-94-1tu" id="cKf-BZ-lW0"/>
             </connections>
+            <point key="canvasLocation" x="225" y="167"/>
         </tableViewCell>
     </objects>
     <resources>

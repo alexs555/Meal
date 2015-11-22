@@ -32,15 +32,36 @@ class BaseViewController: UIViewController, DZNEmptyDataSetSource, DZNEmptyDataS
         tableView.emptyDataSetDelegate = self
     }
    
+    
+    func removeRecipe(recipe:RecipeData) {
+        
+        let _recipe:RecipeModel? = CoreDataManager.sharedInstance.entity(recipe.recipeId,force:true)
+        CoreDataManager.sharedInstance.removeEntity(_recipe!)
+        CoreDataManager.sharedInstance.save()
+    }
 
     func setupViews() {
         
-        // Setup placeholder views
-        /*loadingView = LoadingView(frame: view.frame)
-        emptyView = EmptyView(frame: view.frame)
-        let failureView = ErrorView(frame: view.frame)
-        failureView.tapGestureRecognizer.addTarget(self, action: Selector("refresh"))
-        errorView = failureView*/
+       //override in subclasses
+    }
+    
+    func saveRecipe(recipe:RecipeData) {
+        
+        let _recipe:RecipeModel? = CoreDataManager.sharedInstance.entity(recipe.recipeId,force:true)
+        _recipe!.title = recipe.title
+        _recipe!.rank = recipe.rank
+        _recipe!.publisher = recipe.publisher
+        _recipe!.imageURL = recipe.imageURL
+        _recipe!.recipeId = recipe.recipeId
+        
+        CoreDataManager.sharedInstance.save()
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        
+        let destinationController = segue.destinationViewController as! RecipeController
+        destinationController.recipeId = sender as? String
+        
     }
 
 }

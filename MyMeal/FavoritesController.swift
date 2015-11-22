@@ -29,8 +29,7 @@ class FavoritesController: BaseViewController, NSFetchedResultsControllerDelegat
         tableView.estimatedRowHeight = 200.0
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.registerNib(UINib(nibName: "LoadingCell", bundle: nil), forCellReuseIdentifier: "LoadingCell")
-        
-        // Do any additional setup after loading the view, typically from a nib.
+        title = "Favorites"
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -86,12 +85,31 @@ extension FavoritesController: UITableViewDataSource {
         let recipe = fetchedResultsController.objectAtIndexPath(indexPath) as! RecipeModel
         let rCell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as! RecepiesCell
         rCell.updateWithRecipe(recipe)
-        rCell.addTarget(self, action: "addToFavorites:")
+        rCell.addTarget(self, action: "remove:")
         return rCell
         
     }
     
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath ) -> Void {
+        
+        let recipe = items![indexPath.row]
+        self.performSegueWithIdentifier("showRecipe", sender: recipe.recipeId)
+    }
+    
+    func remove(button:UIButton) {
+        
+        let view = button.superview!
+        let cell = view.superview as! RecepiesCell
+        let indexPath = tableView.indexPathForCell(cell)
+        let recipe = fetchedResultsController.objectAtIndexPath(indexPath!) as! RecipeModel
+        self.removeRecipe(recipe)
+        tableView.reloadData()
+        
+    }
+    
 }
+
+
 
 
 extension FavoritesController {

@@ -16,7 +16,7 @@ protocol RecipeData {
     var imageURL: String { get }
     var publisher: String { get set}
     var rank: NSNumber {get set}
-    var isFavorite: Bool { get}
+    var isFavorite: Bool { get }
     var recipeId: String { get set}
     
     func setFavorite(favorite: Bool)

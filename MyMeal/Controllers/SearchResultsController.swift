@@ -69,7 +69,7 @@ class SearchResultsController: BaseViewController, UISearchBarDelegate {
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
        
         let cell:UITableViewCell
-        if (indexPath.row == ((items?.count)! - 1)) {
+        if (indexPath.row == ((items?.count)! - 1) && items?.count > 0) {
            let lCell = tableView.dequeueReusableCellWithIdentifier("LoadingCell", forIndexPath: indexPath) as! LoadingCell
             cell = lCell
             loadData(currentQuery!, force:false)
@@ -113,33 +113,15 @@ class SearchResultsController: BaseViewController, UISearchBarDelegate {
         let indexPath = tableView.indexPathForCell(cell)
         let recipe = items?[(indexPath?.row)!]
         recipe?.setFavorite(button.selected)
-        if (button.selected) {
+        if (recipe!.isFavorite) {
            saveRecipe(recipe!)
         } else {
-            //remove recipe
+            removeRecipe(recipe!)
         }
-        
-    }
-    
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        
-        let destinationController = segue.destinationViewController as! RecipeController
-        destinationController.recipeId = sender as? String
-        destinationController.recipesProvider = dataProvider
-        
-    }
-    
-    func saveRecipe(recipe:Recipe) {
-
-        let _recipe:RecipeModel = CoreDataManager.sharedInstance.entity(recipe.recipeId)
-        _recipe.title = recipe.title
-        _recipe.rank = recipe.rank
-        _recipe.publisher = recipe.publisher
-        _recipe.imageURL = recipe.imageURL
-        _recipe.recipeId = recipe.recipeId
-        
         CoreDataManager.sharedInstance.save()
     }
+    
+
     
     func fetchFavorities() {
         

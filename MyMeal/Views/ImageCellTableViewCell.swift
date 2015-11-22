@@ -19,7 +19,7 @@ class ImageCellTableViewCell: BaseTableViewCell {
 
     override func updateWithItem(recipe:Recipe) {
         
-        mainImageView.setImageFromUrl(recipe.imageURL.absoluteString, animated: true)
+        mainImageView.setImageFromUrl(recipe.imageURL, animated: true)
     }
     
 }
