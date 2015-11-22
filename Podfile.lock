@@ -1,12 +1,10 @@
 PODS:
-  - Alamofire (3.1.0)
+  - Alamofire (3.1.2)
   - DZNEmptyDataSet (1.7.2)
   - MBProgressHUD (0.9.1)
-  - RxBlocking (2.0.0-beta.1):
+  - RxBlocking (2.0.0-beta.3):
     - RxSwift (~> 2.0.0-beta)
-  - RxCocoa (2.0.0-beta.1):
-    - RxSwift (~> 2.0.0-beta)
-  - RxSwift (2.0.0-beta.1)
+  - RxSwift (2.0.0-beta.3)
   - StatefulViewController (1.0)
   - SwiftyJSON (2.3.1)
 
@@ -15,18 +13,15 @@ DEPENDENCIES:
   - DZNEmptyDataSet
   - MBProgressHUD (~> 0.9.1)
   - RxBlocking (~> 2.0.0-alpha)
-  - RxCocoa (~> 2.0.0-alpha)
-  - RxSwift (~> 2.0.0-alpha)
   - StatefulViewController (~> 1.0)
   - SwiftyJSON
 
 SPEC CHECKSUMS:
-  Alamofire: 415bd7f56197722978759078486689f7ef913dce
+  Alamofire: 7c16ca65f3c7e681fd925fd7f2dec7747ff96855
   DZNEmptyDataSet: 0ec00bfc230d7450997b60c127afdd0b9f24f3b6
   MBProgressHUD: c47f2c166c126cf2ce36498d80f33e754d4e93ad
-  RxBlocking: db06b6f8ea08b35b8b5bcd325389f73af3e94716
-  RxCocoa: a3c35a39c3b4e8175f271bd3a28be8ca52f97c93
-  RxSwift: a9b0f4d876eac130cda0ae2f3fba627be3baf3ef
+  RxBlocking: 331f8bdedf77198f8ff1a37f09c492f1f4f631e5
+  RxSwift: 19fbe885b404d1d36d42ac8535134739a9b42952
   StatefulViewController: 2a0e5ab30d9ade8e366253fb759baa9fbf458f3e
   SwiftyJSON: 592b53bee5ef3dd9b3bebc6b9cb7ee35426ae8c3
 
