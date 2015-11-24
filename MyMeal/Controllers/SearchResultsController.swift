@@ -11,21 +11,23 @@ import MBProgressHUD
 import DZNEmptyDataSet
 import CoreData
 
-// UITextFieldDelegate, UITableViewDelegate,UITableViewDatasource
 class SearchResultsController: BaseViewController, UISearchBarDelegate {
     
-   // @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var segmentedControl: UISegmentedControl!
     @IBOutlet weak var searchBar: UISearchBar!
     
     var items:[Recipe]?
     var favoriteItems:[RecipeModel]?
     var currentQuery: String?
     var dataProvider:RecipesDataProvider!
+    var sortType = SortType.Rating
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         items = []
+        
+        segmentedControl.addTarget(self, action: "segmentPressed:", forControlEvents: UIControlEvents.ValueChanged)
         
         dataProvider = RecipesDataProvider()
         tableView.estimatedRowHeight = 200.0
@@ -36,6 +38,11 @@ class SearchResultsController: BaseViewController, UISearchBarDelegate {
     }
     
 
+    func segmentPressed(segment:UISegmentedControl) {
+        
+        sortType = segment.selectedSegmentIndex == 0 ? SortType.Rating : SortType.Tranding
+        
+    }
     
     func loadData(query:String, force:Bool) {
         
@@ -44,7 +51,7 @@ class SearchResultsController: BaseViewController, UISearchBarDelegate {
             hud.labelText = "Fetching recipes..."
             hud.mode = .Indeterminate
         }
-        dataProvider.fetchRecipes(force,query:query,completionHandler:{ (recipes, success) -> Void in
+        dataProvider.fetchRecipes(sortType, force:force,query:query,completionHandler:{ (recipes, success) -> Void in
             
            MBProgressHUD.hideAllHUDsForView(self.view, animated: true)
             if let recipes = recipes {

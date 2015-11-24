@@ -19,20 +19,20 @@ class RecipesDataProvider {
     
     private var currentPage = 0
     
-    static func parseJSONArray(json:AnyObject?) throws -> [Recipe] {
+    static func parseJSONArray(json:AnyObject?) throws -> [Recipe]? {
         
             guard let resultJSON = json else {
                 throw ParseError
             }
 
-            var json = try JSON(resultJSON)
+            var json = JSON(resultJSON)
     
             let recipes = json["recipes"].array?.map({ element -> Recipe in
            
                 return RecipesDataProvider.parseJSONItem(element)
             })
         
-        return recipes!
+        return recipes
         
     }
     
@@ -43,10 +43,10 @@ class RecipesDataProvider {
      
     }
     
-    func fetchRecipes(forse:Bool,query:String, completionHandler:(recipes:[Recipe]?,success:Bool)->Void) {
+    func fetchRecipes(sort:SortType, force:Bool,query:String, completionHandler:(recipes:[Recipe]?,success:Bool)->Void) {
         
-        currentPage = forse ? 1 : ++currentPage
-        ApiClient.defaultClient.fetchRecipesForQuery(query, page: currentPage , sort: SortType.Rating.rawValue, completionHandler:{ (recipes, success)-> Void in
+        currentPage = force ? 1 : ++currentPage
+        ApiClient.defaultClient.fetchRecipesForQuery(query, page: currentPage , sort: sort.rawValue, completionHandler:{ (recipes, success)-> Void in
             
             completionHandler(recipes:recipes, success:success)
         
