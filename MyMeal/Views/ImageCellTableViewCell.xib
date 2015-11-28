@@ -17,35 +17,15 @@
                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Tef-5x-IWU">
                         <rect key="frame" x="0.0" y="0.0" width="322" height="249"/>
                         <animations/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="250" id="mxS-rB-X24"/>
-                        </constraints>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="mxS-rB-X24"/>
-                            </mask>
-                        </variation>
                     </imageView>
                 </subviews>
                 <animations/>
                 <constraints>
                     <constraint firstItem="Tef-5x-IWU" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="6Ie-8C-bHp"/>
-                    <constraint firstItem="Tef-5x-IWU" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="AkU-hD-sPW"/>
-                    <constraint firstAttribute="bottom" secondItem="Tef-5x-IWU" secondAttribute="bottom" id="NTZ-mi-IBb"/>
                     <constraint firstItem="Tef-5x-IWU" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="Q2g-wK-glh"/>
                     <constraint firstAttribute="bottom" secondItem="Tef-5x-IWU" secondAttribute="bottom" id="WI2-c0-wPo"/>
                     <constraint firstAttribute="trailing" secondItem="Tef-5x-IWU" secondAttribute="trailing" id="bFo-e6-FJX"/>
-                    <constraint firstAttribute="bottom" secondItem="Tef-5x-IWU" secondAttribute="bottom" id="fAx-gj-oVE"/>
-                    <constraint firstItem="Tef-5x-IWU" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="p7l-nA-1d3"/>
                 </constraints>
-                <variation key="default">
-                    <mask key="constraints">
-                        <exclude reference="AkU-hD-sPW"/>
-                        <exclude reference="NTZ-mi-IBb"/>
-                        <exclude reference="fAx-gj-oVE"/>
-                        <exclude reference="p7l-nA-1d3"/>
-                    </mask>
-                </variation>
             </tableViewCellContentView>
             <animations/>
             <connections>

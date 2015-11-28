@@ -38,13 +38,14 @@ class RecipeController: BaseViewController {
                 recipesProvider.recipeById(recipeId, completionHandler:{ (recipe, success) -> Void in
                     
                     MBProgressHUD.hideAllHUDsForView(self.view, animated: true)
+
                     if let recipe = recipe {
                         self.currentRecipe = recipe
                         self.configureNavBar()
                         self.setupDataSource(recipe)
 
                     } else {
-                        //show error
+                        self.showAlertWithText("Loading failed, check Internet connection, please")
                     }
                     self.tableView.reloadData()
                     
@@ -56,6 +57,7 @@ class RecipeController: BaseViewController {
         tableView.registerNib(UINib(nibName: "IngredientCell", bundle: nil), forCellReuseIdentifier: "IngredientCell")
         tableView.estimatedRowHeight = 100.0
         tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.allowsSelection = false
         configureNavBar()
 
         // Do any additional setup after loading the view.

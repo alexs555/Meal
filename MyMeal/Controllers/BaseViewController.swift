@@ -63,5 +63,13 @@ class BaseViewController: UIViewController, DZNEmptyDataSetSource, DZNEmptyDataS
         destinationController.recipeId = sender as? String
         
     }
+    
+    func showAlertWithText(text:String) {
+        
+        let alert = UIAlertController(title: "Error", message: text, preferredStyle: UIAlertControllerStyle.Alert)
+        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+        self.presentViewController(alert, animated: true, completion: nil)
+        
+    }
 
 }

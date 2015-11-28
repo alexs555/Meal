@@ -54,6 +54,13 @@ class SearchResultsController: BaseViewController, UISearchBarDelegate {
         dataProvider.fetchRecipes(sortType, force:force,query:query,completionHandler:{ (recipes, success) -> Void in
             
            MBProgressHUD.hideAllHUDsForView(self.view, animated: true)
+            
+            if (!success) {
+                
+                self.showAlertWithText("Loading failed, check Internet connection, please")
+                return
+            }
+            
             if let recipes = recipes {
                 self.items?.appendContentsOf(recipes)
             } else {
@@ -98,7 +105,7 @@ class SearchResultsController: BaseViewController, UISearchBarDelegate {
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath ) -> Void {
-        
+        tableView.deselectRowAtIndexPath(indexPath, animated: false)
         let recipe = items![indexPath.row]
         self.performSegueWithIdentifier("showRecipe", sender: recipe.recipeId)
     }
